@@ -88,161 +88,161 @@ class _MainState extends State<MainPage> {
             children: [
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 0, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 0, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 1, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 1, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 2, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 2, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 3, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 3, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 4, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 4, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 5, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 5, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 6, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 6, board: _board, callBack: _tapCallBack),
                 ],
               ),
               Row(
                 children: [
-                  _SquareContainer(
+                  SquareContainer(
                       x: 0, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 1, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 2, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 3, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 4, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 5, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 6, y: 7, board: _board, callBack: _tapCallBack),
-                  _SquareContainer(
+                  SquareContainer(
                       x: 7, y: 7, board: _board, callBack: _tapCallBack),
                 ],
               ),
@@ -260,23 +260,29 @@ class _MainState extends State<MainPage> {
   }
 }
 
-class _SquareContainer extends InkWell {
+class SquareContainer extends StatefulWidget {
   final int x;
   final int y;
   final Board board;
   final void Function({required int x, required int y}) callBack;
 
-  _SquareContainer(
-      {required this.x,
+  SquareContainer(
+      {Key? key,
+      required this.x,
       required this.y,
       required this.board,
-      required this.callBack});
+      required this.callBack})
+      : super(key: key);
+  @override
+  State<SquareContainer> createState() => SquareState();
+}
 
+class SquareState extends State<SquareContainer> {
   var _text = '';
 
   @override
   Widget build(BuildContext context) {
-    var stone = board.getStone(x: x, y: y);
+    var stone = widget.board.getStone(x: widget.x, y: widget.y);
     if (stone == Stone.black) {
       _text = '●';
     } else if (stone == Stone.white) {
@@ -284,19 +290,22 @@ class _SquareContainer extends InkWell {
     } else {
       _text = '';
     }
-    var canPut = board.canPutPoints
-        .where((e) => e.point.x == x && e.point.y == y)
+    var canPut = widget.board.canPutPoints
+        .where((e) => e.point.x == widget.x && e.point.y == widget.y)
         .isNotEmpty;
     var color = canPut
         ? Colors.yellow
-        : (board.lastPoint?.x == x && board.lastPoint?.y == y
+        : (widget.board.lastPoint?.x == widget.x &&
+                widget.board.lastPoint?.y == widget.y
             ? Colors.blue
-            : (board.lastChanged.where((e) => e.x == x && e.y == y).isNotEmpty
+            : (widget.board.lastChanged
+                    .where((e) => e.x == widget.x && e.y == widget.y)
+                    .isNotEmpty
                 ? Colors.orange
                 : Colors.white));
     return InkWell(
       onTap: () {
-        callBack(x: x, y: y);
+        widget.callBack(x: widget.x, y: widget.y);
       },
       child: Container(
         alignment: Alignment.center,
