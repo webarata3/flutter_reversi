@@ -278,18 +278,9 @@ class SquareContainer extends StatefulWidget {
 }
 
 class SquareState extends State<SquareContainer> {
-  var _text = '';
-
   @override
   Widget build(BuildContext context) {
     var stone = widget.board.getStone(x: widget.x, y: widget.y);
-    if (stone == Stone.black) {
-      _text = '●';
-    } else if (stone == Stone.white) {
-      _text = '○';
-    } else {
-      _text = '';
-    }
     var canPut = widget.board.canPutPoints
         .where((e) => e.point.x == widget.x && e.point.y == widget.y)
         .isNotEmpty;
@@ -316,7 +307,7 @@ class SquareState extends State<SquareContainer> {
           color: color,
         ),
         child: Text(
-          _text,
+          stone.text,
           style: const TextStyle(fontSize: 35),
         ),
       ),
