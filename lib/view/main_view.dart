@@ -278,22 +278,22 @@ class SquareContainer extends StatefulWidget {
 }
 
 class SquareState extends State<SquareContainer> {
-  @override
-  Widget build(BuildContext context) {
-    var stone = widget.board.getStone(x: widget.x, y: widget.y);
+  Color _getColor() {
     var canPut = widget.board.canPutPoints
         .where((e) => e.point.x == widget.x && e.point.y == widget.y)
         .isNotEmpty;
-    var color = canPut
-        ? Colors.yellow
-        : (widget.board.lastPoint?.x == widget.x &&
-                widget.board.lastPoint?.y == widget.y
-            ? Colors.blue
-            : (widget.board.lastChanged
-                    .where((e) => e.x == widget.x && e.y == widget.y)
-                    .isNotEmpty
-                ? Colors.orange
-                : Colors.white));
+    if (canPut) return Colors.yellow;
+    if (widget.board.lastPoint?.x == widget.x &&
+        widget.board.lastPoint?.y == widget.y) return Colors.blue;
+    if (widget.board.lastChanged
+        .where((e) => e.x == widget.x && e.y == widget.y)
+        .isNotEmpty) return Colors.orange;
+    return Colors.white;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var stone = widget.board.getStone(x: widget.x, y: widget.y);
     return InkWell(
       onTap: () {
         widget.callBack(x: widget.x, y: widget.y);
@@ -304,7 +304,7 @@ class SquareState extends State<SquareContainer> {
         height: 45.0,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black),
-          color: color,
+          color: _getColor(),
         ),
         child: Text(
           stone.text,

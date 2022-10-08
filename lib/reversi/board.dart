@@ -134,6 +134,7 @@ class Board {
   }
 
   void _initPut() {
+    _nextStone = Stone.black;
     for (var inner in _squares) {
       for (var square in inner) {
         square.init();
