@@ -87,6 +87,7 @@ class _MainState extends State<MainPage> {
           Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 0, board: _board, callBack: _tapCallBack),
@@ -107,6 +108,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 1, board: _board, callBack: _tapCallBack),
@@ -127,6 +129,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 2, board: _board, callBack: _tapCallBack),
@@ -147,6 +150,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 3, board: _board, callBack: _tapCallBack),
@@ -167,6 +171,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 4, board: _board, callBack: _tapCallBack),
@@ -187,6 +192,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 5, board: _board, callBack: _tapCallBack),
@@ -207,6 +213,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 6, board: _board, callBack: _tapCallBack),
@@ -227,6 +234,7 @@ class _MainState extends State<MainPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareContainer(
                       x: 0, y: 7, board: _board, callBack: _tapCallBack),
