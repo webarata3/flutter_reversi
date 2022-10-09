@@ -128,7 +128,7 @@ class SquareContainer extends StatefulWidget {
 
 class SquareState extends State<SquareContainer> {
   Color _getColor() {
-    var canPut = widget.board.canPut(widget.x, widget.y);
+    var canPut = widget.board.canPut(x: widget.x, y: widget.y);
     if (canPut) return Colors.yellow;
     if (widget.board.lastPoint?.x == widget.x &&
         widget.board.lastPoint?.y == widget.y) return Colors.blue;

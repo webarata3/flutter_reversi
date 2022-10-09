@@ -148,7 +148,7 @@ class Board {
     _initPut();
   }
 
-  bool canPut(int x, int y) {
+  bool canPut({required int x, required int y}) {
     return canPutPoints
         .where((e) => e.point.x == x && e.point.y == y)
         .isNotEmpty;
