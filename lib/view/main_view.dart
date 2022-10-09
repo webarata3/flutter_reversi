@@ -138,6 +138,11 @@ class SquareState extends State<SquareContainer> {
     return Colors.white;
   }
 
+  static const Map<Stone, String> _stoneMap = {
+    Stone.black: '⚫',
+    Stone.white: '⚪',
+  };
+
   @override
   Widget build(BuildContext context) {
     var stone = widget.board.getStone(x: widget.x, y: widget.y);
@@ -154,7 +159,7 @@ class SquareState extends State<SquareContainer> {
           color: _getColor(),
         ),
         child: Text(
-          stone.text,
+          SquareState._stoneMap[stone] ?? '',
           style: const TextStyle(fontSize: 35),
         ),
       ),

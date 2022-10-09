@@ -1,13 +1,9 @@
 import 'dart:io';
 
 enum Stone {
-  black(text: '⚫'),
-  white(text: '⚪'),
-  nothing(text: '');
-
-  const Stone({required this.text});
-
-  final String text;
+  black,
+  white,
+  nothing;
 
   Stone reverse() {
     switch (this) {
