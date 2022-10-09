@@ -158,6 +158,10 @@ class Board {
     return _lastPoint?.x == x && _lastPoint?.y == y;
   }
 
+  bool isLastChanged({required int x, required int y}) {
+    return _lastChanged.where((e) => e.x == x && e.y == y).isNotEmpty;
+  }
+
   bool put({required int x, required int y}) {
     // 置けない場合はエラー
     if (_squares[x][y].state == SquareState.canNotPut) {
