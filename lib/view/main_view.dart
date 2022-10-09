@@ -115,7 +115,7 @@ class SquareContainer extends StatefulWidget {
   final Board board;
   final void Function({required int x, required int y}) callBack;
 
-  SquareContainer(
+  const SquareContainer(
       {Key? key,
       required this.x,
       required this.y,
@@ -128,9 +128,7 @@ class SquareContainer extends StatefulWidget {
 
 class SquareState extends State<SquareContainer> {
   Color _getColor() {
-    var canPut = widget.board.canPutPoints
-        .where((e) => e.point.x == widget.x && e.point.y == widget.y)
-        .isNotEmpty;
+    var canPut = widget.board.canPut(widget.x, widget.y);
     if (canPut) return Colors.yellow;
     if (widget.board.lastPoint?.x == widget.x &&
         widget.board.lastPoint?.y == widget.y) return Colors.blue;

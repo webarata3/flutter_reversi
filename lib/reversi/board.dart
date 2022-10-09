@@ -152,6 +152,12 @@ class Board {
     _initPut();
   }
 
+  bool canPut(int x, int y) {
+    return canPutPoints
+        .where((e) => e.point.x == x && e.point.y == y)
+        .isNotEmpty;
+  }
+
   bool put({required int x, required int y}) {
     // 置けない場合はエラー
     if (_squares[x][y].state == SquareState.canNotPut) {
