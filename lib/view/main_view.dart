@@ -86,11 +86,11 @@ class _MainState extends State<MainPage> {
           ),
           Column(
             children: [
-              for (var y = 0; y < 8; y++)
+              for (var y = 0; y < Board.boardHeight; y++)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    for (var x = 0; x < 8; x++)
+                    for (var x = 0; x < Board.boardWidth; x++)
                       SquareContainer(
                           x: x, y: y, board: _board, callBack: _tapCallBack)
                   ],
