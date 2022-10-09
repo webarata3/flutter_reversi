@@ -130,8 +130,8 @@ class SquareState extends State<SquareContainer> {
   Color _getColor() {
     var canPut = widget.board.canPut(x: widget.x, y: widget.y);
     if (canPut) return Colors.yellow;
-    if (widget.board.lastPoint?.x == widget.x &&
-        widget.board.lastPoint?.y == widget.y) return Colors.blue;
+    var isLastPoint = widget.board.isLastPoint(x: widget.x, y: widget.y);
+    if (isLastPoint) return Colors.blue;
     if (widget.board.lastChanged
         .where((e) => e.x == widget.x && e.y == widget.y)
         .isNotEmpty) return Colors.orange;

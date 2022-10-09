@@ -154,6 +154,10 @@ class Board {
         .isNotEmpty;
   }
 
+  bool isLastPoint({required int x, required int y}) {
+    return _lastPoint?.x == x && _lastPoint?.y == y;
+  }
+
   bool put({required int x, required int y}) {
     // 置けない場合はエラー
     if (_squares[x][y].state == SquareState.canNotPut) {
