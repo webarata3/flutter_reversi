@@ -76,9 +76,62 @@ class _MainState extends State<MainPage> {
       ),
       body: Column(
         children: [
-          Text(
-            '黒（先行）: ${widget.player1.label}  白（後攻）: ${widget.player2.label}',
-            style: Theme.of(context).textTheme.headline6,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    const Text(
+                      '黒',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.player1.label,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                color: Colors.white,
+                child: Row(
+                  children: [
+                    const Text(
+                      '白',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.player2.label,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
