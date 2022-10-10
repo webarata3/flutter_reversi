@@ -80,9 +80,62 @@ class _MainState extends State<MainPage> {
             '黒（先行）: ${widget.player1.label}  白（後攻）: ${widget.player2.label}',
             style: Theme.of(context).textTheme.headline6,
           ),
-          Text(
-            '黒: ${_board.countBlack}   白: ${_board.countWhite}',
-            style: Theme.of(context).textTheme.headline6,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    const Text(
+                      '黒',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Container(
+                      width: 40,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        '${_board.countBlack}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                color: Colors.white,
+                child: Row(
+                  children: [
+                    const Text(
+                      '白',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Container(
+                      width: 40,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        '${_board.countWhite}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           Column(
             children: [
