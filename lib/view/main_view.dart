@@ -69,7 +69,7 @@ class _MainState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => {pointing()});
+    WidgetsBinding.instance.addPostFrameCallback((_) => pointing());
     return Scaffold(
       appBar: AppBar(
         title: const Text('ワイのリバーシ'),
@@ -206,7 +206,7 @@ class _MainState extends State<MainPage> {
           ElevatedButton(
             child: const Text('再戦'),
             onPressed: () {
-              setState(() => {_board.restart()});
+              setState(() => _board.restart());
             },
           ),
         ],
