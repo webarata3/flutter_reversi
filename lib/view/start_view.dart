@@ -45,7 +45,7 @@ class _StartState extends State<StartPage> {
                 children: [
                   Text(
                     "黒（先手）",
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   PlayerRadioListTile(
                       groupValue: _player1, value: Player.human, f: change1),
@@ -63,7 +63,7 @@ class _StartState extends State<StartPage> {
                 children: [
                   Text(
                     "白（後手）",
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   PlayerRadioListTile(
                       groupValue: _player2, value: Player.human, f: change2),
