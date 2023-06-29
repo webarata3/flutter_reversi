@@ -240,7 +240,7 @@ class SquareState extends State<SquareContainer> {
     if (isLastPoint) return Colors.blue;
     var isLastChanged = widget.board.isLastChanged(x: widget.x, y: widget.y);
     if (isLastChanged) return Colors.orange;
-    return Colors.white;
+    return const Color.fromARGB(255, 50, 158, 10);
   }
 
   static const Map<Stone, String> _stoneMap = {
@@ -265,7 +265,7 @@ class SquareState extends State<SquareContainer> {
         ),
         child: Text(
           SquareState._stoneMap[stone] ?? '',
-          style: const TextStyle(fontSize: 35),
+          style: const TextStyle(fontSize: 30),
         ),
       ),
     );
