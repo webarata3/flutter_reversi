@@ -29,7 +29,7 @@ class _StartState extends State<StartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ワイのリバーシ'),
+        title: const Text('最強!? リバーシ'),
       ),
       body: _getStartDisplay(),
     );
@@ -44,7 +44,7 @@ class _StartState extends State<StartPage> {
               child: Column(
                 children: [
                   Text(
-                    "黒（先手）",
+                    "⚫（先手）",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   PlayerRadioListTile(
@@ -62,7 +62,7 @@ class _StartState extends State<StartPage> {
               child: Column(
                 children: [
                   Text(
-                    "白（後手）",
+                    "⚪（後手）",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   PlayerRadioListTile(
@@ -78,7 +78,7 @@ class _StartState extends State<StartPage> {
             ),
           ],
         ),
-        ElevatedButton(
+        FilledButton(
           onPressed: () {
             Navigator.push(
               context,
