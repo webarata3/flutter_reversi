@@ -67,129 +67,85 @@ class _MainState extends State<MainPage> {
     }
   }
 
+  Text _getNext() {
+    return switch (_board.boardState) {
+      BoardState.pending =>
+        _board.nextStone == Stone.black ? const Text('次 ⚫') : const Text('次 ⚪'),
+      BoardState.winBlack => const Text('⚫の勝ち'),
+      BoardState.winWhite => const Text('⚪の勝ち'),
+      BoardState.draw => const Text('引き分け'),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => pointing());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ワイのリバーシ'),
+        title: const Text('対局'),
       ),
       body: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                color: Colors.black,
-                child: Row(
-                  children: [
-                    const Text(
-                      '黒',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Container(
-                      width: 80,
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.player1.label,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+              Expanded(
+                child: Container(
+                  color: Colors.purple[100],
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: _getNext(),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    const Text(
-                      '白',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Container(
-                      width: 80,
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.player2.label,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(
+                                  width: 32,
+                                  child: Text('⚫'),
+                                ),
+                                Text('${_board.countBlack}'),
+                              ],
+                            ),
+                            Text(widget.player1.label),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                color: Colors.black,
-                child: Row(
-                  children: [
-                    const Text(
-                      '黒',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                      const SizedBox(
+                        width: 10.0,
                       ),
-                    ),
-                    Container(
-                      width: 40,
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '${_board.countBlack}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(
+                                  width: 32,
+                                  child: Text('⚪'),
+                                ),
+                                Text('${_board.countWhite}'),
+                              ],
+                            ),
+                            Text(widget.player2.label),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(5.0),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    const Text(
-                      '白',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Container(
-                      width: 40,
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '${_board.countWhite}',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 10),
           Column(
             children: [
               for (var y = 0; y < Board.boardHeight; y++)
