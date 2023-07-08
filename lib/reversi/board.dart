@@ -1,5 +1,49 @@
 import 'dart:io';
 
+import 'package:reversi/reversi/operator.dart';
+
+void main(List<String> args) {
+  if (args.length != 1) {
+    print('count');
+    return;
+  }
+  var count = int.parse(args[0]);
+  var players = [
+    CpuRandom(),
+    CpuRandom(),
+  ];
+
+  var winBlack = 0;
+  var winWhite = 0;
+  var draw = 0;
+
+  for (var i = 0; i < count; i++) {
+    var board = Board();
+
+    while (true) {
+      var point = board.nextStone == Stone.black
+          ? players[0].next(board)
+          : players[1].next(board);
+
+      board.put(x: point.x, y: point.y);
+      if (board.boardState == BoardState.winBlack) {
+        print('win ⚫');
+        winBlack++;
+        break;
+      } else if (board.boardState == BoardState.winWhite) {
+        print('win ⚪');
+        winWhite++;
+        break;
+      } else if (board.boardState == BoardState.draw) {
+        print('draw');
+        draw++;
+        break;
+      }
+    }
+  }
+  print('⚫$winBlack ⚪$winWhite -$draw');
+}
+
 enum Stone {
   black,
   white,
@@ -181,6 +225,20 @@ class Board {
         _skipped = true;
         _nextStone = _nextStone.reverse();
         _canCheckPut(stone: _nextStone);
+        // スキップされている状態でスキップされるともう置けないので結果を出す
+        tempList = _squares.expand((e) => e).toList();
+        countCanPut =
+            tempList.where((e) => e.state == SquareState.canPut).length;
+        if (countCanPut == 0) {
+          if (_countBlack == _countWhite) {
+            _boardState = BoardState.draw;
+          } else if (_countBlack > _countWhite) {
+            _boardState = BoardState.winBlack;
+          } else {
+            _boardState = BoardState.winWhite;
+          }
+          return true;
+        }
       }
     }
     return true;
