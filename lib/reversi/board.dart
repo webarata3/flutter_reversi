@@ -3,15 +3,17 @@ import 'dart:io';
 import 'package:reversi/reversi/operator.dart';
 
 void main(List<String> args) {
-  if (args.length != 1) {
+  if (args.length != 3) {
     print('count');
     return;
   }
   var count = int.parse(args[0]);
-  var players = [
-    CpuRandom(),
+  var p1 = int.parse(args[1]);
+  var p2 = int.parse(args[2]);
+  var cpus = [
     CpuRandom(),
   ];
+  var players = [cpus[p1], cpus[p2]];
 
   var winBlack = 0;
   var winWhite = 0;
