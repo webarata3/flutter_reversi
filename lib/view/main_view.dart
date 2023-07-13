@@ -27,7 +27,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainState extends State<MainPage> {
-  final _board = Board();
+  final _reversi = Reversi();
 
   @override
   void initState() {
@@ -35,9 +35,9 @@ class _MainState extends State<MainPage> {
   }
 
   void pointing() {
-    if (_board.boardState == BoardState.pending) {
+    if (_reversi.boardState == BoardState.pending) {
       // nullではない
-      var operator = widget._operatorMap[_board.nextStone]!;
+      var operator = widget._operatorMap[_reversi.nextStone]!;
 
       if (operator.isAuto()) {
         Timer(const Duration(milliseconds: 500), () => _put(operator));
@@ -46,31 +46,32 @@ class _MainState extends State<MainPage> {
   }
 
   void _put(Operator operator) {
-    var point = operator.next(_board);
+    var point = operator.next(_reversi.currentBoard);
     setState(() {
-      _board.put(x: point.x, y: point.y);
+      _reversi.put(x: point.x, y: point.y);
     });
   }
 
   void _tapCallBack({required int x, required int y}) {
-    var operator = widget._operatorMap[_board.nextStone]!;
+    var operator = widget._operatorMap[_reversi.nextStone]!;
     if (operator.isAuto()) {
       return;
     }
-    var canPut = _board.canPutPoints
+    var canPut = _reversi.canPutPoints
         .where((elm) => elm.point.x == x && elm.point.y == y)
         .isNotEmpty;
     if (canPut) {
       setState(() {
-        _board.put(x: x, y: y);
+        _reversi.put(x: x, y: y);
       });
     }
   }
 
   Text _getNext() {
-    return switch (_board.boardState) {
-      BoardState.pending =>
-        _board.nextStone == Stone.black ? const Text('次 ⚫') : const Text('次 ⚪'),
+    return switch (_reversi.boardState) {
+      BoardState.pending => _reversi.nextStone == Stone.black
+          ? const Text('次 ⚫')
+          : const Text('次 ⚪'),
       BoardState.winBlack => const Text('⚫の勝ち'),
       BoardState.winWhite => const Text('⚪の勝ち'),
       BoardState.draw => const Text('引き分け'),
@@ -111,7 +112,7 @@ class _MainState extends State<MainPage> {
                                   width: 32,
                                   child: Text('⚫'),
                                 ),
-                                Text('${_board.countBlack}'),
+                                Text('${_reversi.countBlack}'),
                               ],
                             ),
                             Text(widget.player1.label),
@@ -132,7 +133,7 @@ class _MainState extends State<MainPage> {
                                   width: 32,
                                   child: Text('⚪'),
                                 ),
-                                Text('${_board.countWhite}'),
+                                Text('${_reversi.countWhite}'),
                               ],
                             ),
                             Text(widget.player2.label),
@@ -154,7 +155,10 @@ class _MainState extends State<MainPage> {
                   children: [
                     for (var x = 0; x < Board.boardWidth; x++)
                       SquareContainer(
-                          x: x, y: y, board: _board, callBack: _tapCallBack)
+                          x: x,
+                          y: y,
+                          board: _reversi.currentBoard,
+                          callBack: _tapCallBack)
                   ],
                 ),
             ],
@@ -162,7 +166,7 @@ class _MainState extends State<MainPage> {
           ElevatedButton(
             child: const Text('再戦'),
             onPressed: () {
-              setState(() => _board.restart());
+              setState(() => _reversi.restart());
             },
           ),
         ],

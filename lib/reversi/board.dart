@@ -20,23 +20,23 @@ void main(List<String> args) {
   var draw = 0;
 
   for (var i = 0; i < count; i++) {
-    var board = Board();
+    var reversi = Reversi();
 
     while (true) {
-      var point = board.nextStone == Stone.black
-          ? players[0].next(board)
-          : players[1].next(board);
+      var point = reversi.nextStone == Stone.black
+          ? players[0].next(reversi.currentBoard)
+          : players[1].next(reversi.currentBoard);
 
-      board.put(x: point.x, y: point.y);
-      if (board.boardState == BoardState.winBlack) {
+      reversi.put(x: point.x, y: point.y);
+      if (reversi.boardState == BoardState.winBlack) {
         print('win ⚫');
         winBlack++;
         break;
-      } else if (board.boardState == BoardState.winWhite) {
+      } else if (reversi.boardState == BoardState.winWhite) {
         print('win ⚪');
         winWhite++;
         break;
-      } else if (board.boardState == BoardState.draw) {
+      } else if (reversi.boardState == BoardState.draw) {
         print('draw');
         draw++;
         break;
@@ -98,6 +98,13 @@ class Square {
   var stone = Stone.nothing;
   var state = SquareState.canNotPut;
 
+  Square clone() {
+    var square = Square();
+    square.stone = stone;
+    square.state = state;
+    return square;
+  }
+
   void init() {
     stone = Stone.nothing;
     state = SquareState.canNotPut;
@@ -143,59 +150,35 @@ class Board {
   static const boardWidth = 8;
   static const boardHeight = 8;
 
-  final List<List<Square>> _squares;
-
-  Stone getStone({required int x, required int y}) {
-    return _squares[x][y].stone;
-  }
-
+  final List<List<Square>> squares;
   var _countBlack = 0;
-  int get countBlack => _countBlack;
   var _countWhite = 0;
-  int get countWhite => _countWhite;
+
   var _boardState = BoardState.pending;
+  var _nextStone = Stone.black;
+  var _canPutPoints = <PutPoint>[];
+  var _skipped = false;
+  Point? _lastPoint;
+  var _lastChanged = <Point>[];
+
+  int get countBlack => _countBlack;
+  int get countWhite => _countWhite;
   BoardState get boardState => _boardState;
 
-  var _nextStone = Stone.black;
   Stone get nextStone => _nextStone;
-  var _canPutPoints = <PutPoint>[];
   List<PutPoint> get canPutPoints => _canPutPoints;
 
-  var _skipped = false;
   bool get skipped => _skipped;
 
-  Point? _lastPoint;
   Point? get lastPoint => _lastPoint;
-  var _lastChanged = <Point>[];
   List<Point> get lastChanged => _lastChanged;
 
-  Board()
-      : _squares = List.generate(
-            boardWidth, (_) => List.generate(boardHeight, (_) => Square())) {
-    _initPut();
-  }
-
-  void _initPut() {
-    _nextStone = Stone.black;
-    for (var inner in _squares) {
-      for (var square in inner) {
-        square.init();
-      }
-    }
-    _squares[4][3].stone = Stone.black;
-    _squares[3][4].stone = Stone.black;
-    _squares[3][3].stone = Stone.white;
-    _squares[4][4].stone = Stone.white;
-
-    _canCheckPut(stone: _nextStone);
-  }
-
-  void restart() {
-    _initPut();
+  Stone getStone({required int x, required int y}) {
+    return squares[x][y].stone;
   }
 
   bool canPut({required int x, required int y}) {
-    return canPutPoints
+    return _canPutPoints
         .where((e) => e.point.x == x && e.point.y == y)
         .isNotEmpty;
   }
@@ -208,36 +191,102 @@ class Board {
     return _lastChanged.where((e) => e.x == x && e.y == y).isNotEmpty;
   }
 
+  Board()
+      : squares = List.generate(
+            boardWidth, (_) => List.generate(boardHeight, (_) => Square()));
+
+  Board.clone(Board newBoard)
+      : squares = List.generate(
+            boardWidth, (_) => List.generate(boardHeight, (_) => Square())) {
+    for (var i = 0; i < newBoard.squares.length; i++) {
+      for (var j = 0; j < newBoard.squares[i].length; j++) {
+        squares[i][j] = newBoard.squares[i][j].clone();
+      }
+    }
+    _boardState = newBoard._boardState;
+    _nextStone = newBoard._nextStone;
+    _canPutPoints = newBoard._canPutPoints;
+    _skipped = false;
+  }
+}
+
+class Reversi {
+  final _boards = <Board>[];
+  var _currentIndex = 0;
+  late Board _currentBoard;
+
+  int get countBlack => _currentBoard._countBlack;
+  int get countWhite => _currentBoard._countWhite;
+  BoardState get boardState => _currentBoard._boardState;
+
+  Stone get nextStone => _currentBoard._nextStone;
+  List<PutPoint> get canPutPoints => _currentBoard._canPutPoints;
+
+  bool get skipped => _currentBoard._skipped;
+
+  Point? get lastPoint => _currentBoard._lastPoint;
+  List<Point> get lastChanged => _currentBoard._lastChanged;
+
+  Board get currentBoard => _currentBoard;
+
+  Reversi() {
+    _boards.add(Board());
+    _currentBoard = _boards[_currentIndex];
+    _initPut();
+  }
+
+  void _initPut() {
+    _currentBoard._nextStone = Stone.black;
+    for (var inner in _currentBoard.squares) {
+      for (var square in inner) {
+        square.init();
+      }
+    }
+    _currentBoard.squares[4][3].stone = Stone.black;
+    _currentBoard.squares[3][4].stone = Stone.black;
+    _currentBoard.squares[3][3].stone = Stone.white;
+    _currentBoard.squares[4][4].stone = Stone.white;
+
+    _canCheckPut(stone: _currentBoard._nextStone);
+  }
+
+  void restart() {
+    _initPut();
+  }
+
   bool put({required int x, required int y}) {
     // 置けない場合はエラー
-    if (_squares[x][y].state == SquareState.canNotPut) {
+    if (_currentBoard.squares[x][y].state == SquareState.canNotPut) {
       return false;
     }
+    _currentIndex++;
+    _boards.add(Board.clone(currentBoard));
+    _currentBoard = _boards[_currentIndex];
 
-    _skipped = false;
-    _putStone(stone: _nextStone, x: x, y: y);
+    _currentBoard._skipped = false;
+    _putStone(stone: _currentBoard._nextStone, x: x, y: y);
 
-    _nextStone = _nextStone.reverse();
-    _canCheckPut(stone: _nextStone);
-    if (_boardState == BoardState.pending) {
-      var tempList = _squares.expand((e) => e).toList();
+    _currentBoard._nextStone = _currentBoard._nextStone.reverse();
+    _canCheckPut(stone: _currentBoard._nextStone);
+    if (_currentBoard._boardState == BoardState.pending) {
+      var tempList = _currentBoard.squares.expand((e) => e).toList();
       var countCanPut =
           tempList.where((e) => e.state == SquareState.canPut).length;
       if (countCanPut == 0) {
-        _skipped = true;
-        _nextStone = _nextStone.reverse();
-        _canCheckPut(stone: _nextStone);
+        _currentBoard._skipped = true;
+        _currentBoard._nextStone = _currentBoard._nextStone.reverse();
+        _canCheckPut(stone: _currentBoard._nextStone);
         // スキップされている状態でスキップされるともう置けないので結果を出す
-        tempList = _squares.expand((e) => e).toList();
+        tempList = _currentBoard.squares.expand((e) => e).toList();
         countCanPut =
             tempList.where((e) => e.state == SquareState.canPut).length;
         if (countCanPut == 0) {
-          if (_countBlack == _countWhite) {
-            _boardState = BoardState.draw;
-          } else if (_countBlack > _countWhite) {
-            _boardState = BoardState.winBlack;
+          if (_currentBoard._countBlack == _currentBoard._countWhite) {
+            _currentBoard._boardState = BoardState.draw;
+          } else if (_currentBoard._countBlack > _currentBoard._countWhite) {
+            _currentBoard._boardState = BoardState.winBlack;
           } else {
-            _boardState = BoardState.winWhite;
+            _currentBoard._boardState = BoardState.winWhite;
           }
           return true;
         }
@@ -247,20 +296,21 @@ class Board {
   }
 
   void _putStone({required Stone stone, required int x, required int y}) {
-    var putPoint =
-        _canPutPoints.where((e) => e.point.x == x && e.point.y == y).first;
+    var putPoint = _currentBoard._canPutPoints
+        .where((e) => e.point.x == x && e.point.y == y)
+        .first;
     for (var point in putPoint.reversePoints) {
-      _squares[point.x][point.y].stone = stone;
+      _currentBoard.squares[point.x][point.y].stone = stone;
     }
-    _lastPoint = Point(x: x, y: y);
-    _lastChanged = putPoint._reversePoints;
-    _squares[x][y].stone = stone;
+    _currentBoard._lastPoint = Point(x: x, y: y);
+    _currentBoard._lastChanged = putPoint._reversePoints;
+    _currentBoard.squares[x][y].stone = stone;
   }
 
   void printConsole() {
-    for (var y = 0; y < boardHeight; y++) {
-      for (var x = 0; x < boardWidth; x++) {
-        switch (_squares[x][y].stone) {
+    for (var y = 0; y < Board.boardHeight; y++) {
+      for (var x = 0; x < Board.boardWidth; x++) {
+        switch (_currentBoard.squares[x][y].stone) {
           case Stone.black:
             stdout.write('＊');
             break;
@@ -268,7 +318,7 @@ class Board {
             stdout.write('Ｏ');
             break;
           case Stone.nothing:
-            if (_squares[x][y].state == SquareState.canPut) {
+            if (_currentBoard.squares[x][y].state == SquareState.canPut) {
               stdout.write('・');
             } else {
               stdout.write('＿');
@@ -281,37 +331,39 @@ class Board {
   }
 
   void _canCheckPut({required Stone stone}) {
-    _canPutPoints = [];
-    for (var x = 0; x < boardWidth; x++) {
-      for (var y = 0; y < boardHeight; y++) {
-        if (_squares[x][y].stone != Stone.nothing) {
-          _squares[x][y].state = SquareState.canNotPut;
+    _currentBoard._canPutPoints = [];
+    for (var x = 0; x < Board.boardWidth; x++) {
+      for (var y = 0; y < Board.boardHeight; y++) {
+        if (_currentBoard.squares[x][y].stone != Stone.nothing) {
+          _currentBoard.squares[x][y].state = SquareState.canNotPut;
           continue;
         }
         var putPoint = _canCheckPutSquare(stone: stone, x: x, y: y);
         if (putPoint.count > 0) {
-          _squares[x][y].state = SquareState.canPut;
-          _canPutPoints.add(putPoint);
+          _currentBoard.squares[x][y].state = SquareState.canPut;
+          _currentBoard._canPutPoints.add(putPoint);
         } else {
-          _squares[x][y].state = SquareState.canNotPut;
+          _currentBoard.squares[x][y].state = SquareState.canNotPut;
         }
       }
     }
-    var tempList = _squares.expand((e) => e).toList();
-    _countBlack = tempList.where((e) => e.stone == Stone.black).length;
-    _countWhite = tempList.where((e) => e.stone == Stone.white).length;
+    var tempList = _currentBoard.squares.expand((e) => e).toList();
+    _currentBoard._countBlack =
+        tempList.where((e) => e.stone == Stone.black).length;
+    _currentBoard._countWhite =
+        tempList.where((e) => e.stone == Stone.white).length;
     var countNothing = tempList.where((e) => e.stone == Stone.nothing).length;
     if (countNothing == 0) {
-      if (_countBlack == _countWhite) {
-        _boardState = BoardState.draw;
-      } else if (_countBlack > _countWhite) {
-        _boardState = BoardState.winBlack;
+      if (_currentBoard._countBlack == _currentBoard._countWhite) {
+        _currentBoard._boardState = BoardState.draw;
+      } else if (_currentBoard._countBlack > _currentBoard._countWhite) {
+        _currentBoard._boardState = BoardState.winBlack;
       } else {
-        _boardState = BoardState.winWhite;
+        _currentBoard._boardState = BoardState.winWhite;
       }
       return;
     }
-    _boardState = BoardState.pending;
+    _currentBoard._boardState = BoardState.pending;
   }
 
   PutPoint _canCheckPutSquare(
@@ -340,19 +392,19 @@ class Board {
       if (_overBoard(x: x, y: y)) {
         return;
       }
-      if (_squares[x][y].stone == Stone.nothing) {
+      if (_currentBoard.squares[x][y].stone == Stone.nothing) {
         return;
       }
       if (isFirst) {
         // 最初がないか、同じ色だと置けない
-        if (_squares[x][y].stone == stone) {
+        if (_currentBoard.squares[x][y].stone == stone) {
           return;
         }
         isFirst = false;
         continue;
       }
       // 最初以外で同じ色だと置ける
-      if (_squares[x][y].stone == stone) {
+      if (_currentBoard.squares[x][y].stone == stone) {
         putPoint.addPoint(
             startX: originX,
             startY: originY,
@@ -366,10 +418,10 @@ class Board {
 
   bool _overBoard({required int x, required int y}) {
     // 盤の外側は終了
-    if (x < 0 || x >= boardWidth) {
+    if (x < 0 || x >= Board.boardWidth) {
       return true;
     }
-    if (y < 0 || y >= boardHeight) {
+    if (y < 0 || y >= Board.boardHeight) {
       return true;
     }
     return false;
